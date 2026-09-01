@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PetaniDolar — Dashboard Cuan Global</title>
+<meta name="description" content="Semua cara cuan online yang terbukti bayar: captcha, AI task, survei, tes website, nulis, ngajar, produk digital, freelance. Catat, kejar target, cair.">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:#070d1a;color:#e2e8f0;padding:0 0 80px;max-width:760px;margin:0 auto}
+  /* HERO */
+  .hero{background:radial-gradient(120% 160% at 85% -20%,#14532d 0%,#065f46 28%,#0b1220 62%);padding:28px 20px 22px;border-bottom:1px solid #14532d;position:relative;overflow:hidden}
+  .hero::after{content:'🚜';position:absolute;right:14px;bottom:-14px;font-size:74px;opacity:.16;transform:rotate(-8deg)}
+  .hero h1{font-size:26px;letter-spacing:.3px}
+  .hero h1 .grad{background:linear-gradient(90deg,#a3e635,#4ade80);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .sub{color:#86efac;font-size:13px;margin-top:4px}
+  .hero .date{color:#a7f3d0;font-size:11.5px;margin-top:10px;opacity:.8}
+  .hero .verified{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:rgba(22,163,74,.15);border:1px solid rgba(74,222,128,.35);color:#4ade80;font-size:11.5px;font-weight:700;padding:5px 12px;border-radius:99px}
+  /* CARD */
+  .card{background:#0e1728;border:1px solid #1c2c47;border-radius:18px;padding:16px;margin:14px 14px 0;box-shadow:0 4px 24px rgba(0,0,0,.25)}
+  .card h2{font-size:15px;margin-bottom:12px;color:#f1f5f9;display:flex;align-items:center;gap:7px}
+  .card h2 small{color:#5b6c8f;font-weight:500;font-size:11.5px}
+  /* STATS */
+  .stats{display:flex;gap:8px;margin-top:14px}
+  .stat{flex:1;text-align:center;background:#0a1120;border:1px solid #1c2c47;border-radius:14px;padding:11px 2px}
+  .stat .lbl{font-size:10px;color:#6d7fa3;text-transform:uppercase;letter-spacing:.5px}
+  .stat .val{font-size:16px;font-weight:800;margin-top:3px}
+  .g{color:#4ade80}.y{color:#facc15}.b{color:#60a5fa}.r{color:#f87171}.p{color:#c084fc}
+  .bar-bg{background:#0a1120;border-radius:99px;height:13px;overflow:hidden;border:1px solid #1c2c47}
+  .bar-fill{height:100%;background:linear-gradient(90deg,#22c55e,#a3e635);width:0%;transition:width .4s;border-radius:99px}
+  .bars .lab{display:flex;justify-content:space-between;font-size:11.5px;color:#8fa0c0;margin:10px 0 4px}
+  #flash{margin-top:10px;font-size:13px;font-weight:700;min-height:18px}
+  /* FILTER CHIPS */
+  .chips{display:flex;gap:7px;overflow-x:auto;padding:4px 14px 10px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex-shrink:0;padding:8px 14px;border-radius:99px;background:#0e1728;border:1px solid #1c2c47;color:#a7b6d2;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+  .chip.on{background:#16a34a;color:#052e16;border-color:#16a34a}
+  /* SEARCH */
+  .search{padding:0 14px}
+  .search input{width:100%;padding:13px 16px;border-radius:14px;border:1px solid #1c2c47;background:#0e1728;color:#e2e8f0;font-size:14px}
+  .search input::placeholder{color:#4d5f82}
+  .search input:focus{outline:2px solid #22c55e}
+  /* PLATFORM GRID */
+  .grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+  @media(min-width:620px){.grid{grid-template-columns:1fr 1fr}}
+  .pc{background:#0e1728;border:1px solid #1c2c47;border-radius:16px;padding:13px 14px;display:flex;flex-direction:column;gap:8px}
+  .pc.rec{border-color:#3f6212;background:linear-gradient(180deg,#132409,#0e1728)}
+  .pc .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .pc .nm{font-weight:800;font-size:14.5px;line-height:1.25}
+  .pc .cat{font-size:10.5px;color:#6d7fa3;margin-top:2px}
+  .badge{display:inline-block;font-size:9.5px;font-weight:800;padding:3px 8px;border-radius:99px;white-space:nowrap;margin-top:2px}
+  .b-ok{background:#14532d;color:#4ade80}
+  .b-warn{background:#713f12;color:#facc15}
+  .b-no{background:#450a0a;color:#f87171}
+  .pc .desc{font-size:12px;color:#9fb0cf;line-height:1.55;flex:1}
+  .pc .meta{display:flex;flex-wrap:wrap;gap:5px;font-size:10px;color:#5b6c8f}
+  .pc .meta span{background:#0a1120;border:1px solid #1c2c47;padding:3px 8px;border-radius:7px}
+  .pc .meta b{color:#a7b6d2}
+  .pc .acts{display:flex;gap:7px}
+  .pc .acts a{flex:1;text-align:center;padding:9px;border-radius:10px;font-size:12px;font-weight:800;text-decoration:none}
+  .pc .acts .go{background:#16a34a;color:#052e16}
+  .pc .acts .rec2{background:#0a1120;border:1px solid #1c2c47;color:#a7b6d2}
+  .star{color:#facc15;font-size:11px}
+  /* QUICK ADD */
+  .row{display:flex;gap:8px;margin-top:10px}
+  .qbtn{flex:1;padding:12px 4px;border:none;border-radius:10px;background:#16233c;color:#e2e8f0;font-weight:800;font-size:14px;cursor:pointer;border:1px solid #24355a}
+  .qbtn.g{background:#16a34a;color:#052e16;border-color:#16a34a}
+  .qbtn:active{transform:scale(.97)}
+  label{display:block;font-size:12px;color:#6d7fa3;margin:10px 0 4px}
+  select,input{width:100%;padding:12px;border-radius:10px;border:1px solid #24355a;background:#0a1120;color:#e2e8f0;font-size:15px}
+  button.main{width:100%;padding:13px;border:none;border-radius:12px;background:#22c55e;color:#052e16;font-weight:800;font-size:15px;margin-top:12px;cursor:pointer}
+  button.ghost{width:100%;padding:11px;border:1px solid #24355a;border-radius:10px;background:transparent;color:#cbd5e1;font-weight:600;margin-top:10px;cursor:pointer;font-size:13px}
+  .hint{font-size:11px;color:#4d5f82;margin-top:8px;line-height:1.5}
+  /* PLATFORM TRACK CARDS */
+  .plat{background:#0a1120;border:1px solid #1c2c47;border-radius:12px;padding:12px;margin-bottom:9px}
+  .plat .top{display:flex;justify-content:space-between;align-items:center}
+  .plat .name{font-weight:700;font-size:13.5px}
+  .plat .bal{font-weight:800;font-size:14.5px}
+  .tag{display:inline-block;font-size:9.5px;font-weight:800;padding:2px 7px;border-radius:99px;vertical-align:middle;margin-left:6px}
+  .tg{background:#14532d;color:#4ade80}.ty{background:#713f12;color:#facc15}
+  .mini{font-size:10.5px;color:#5b6c8f;margin-top:3px}
+  .cair{background:#14532d;color:#4ade80;border:1px solid #22c55e;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:800;cursor:pointer}
+  .wait{background:#0a1120;color:#5c6f94;border:1px solid #1c2c47;border-radius:8px;padding:5px 10px;font-size:10.5px;font-weight:700}
+  .platbtn{text-align:right;margin-top:9px}
+  /* HISTORY */
+  .entry{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #1c2c47;font-size:13px}
+  .entry:last-child{border-bottom:none}
+  .amt-in{color:#4ade80;font-weight:700}.amt-out{color:#60a5fa;font-weight:700}
+  .del{color:#f87171;margin-left:8px;cursor:pointer;font-size:11px;border:1px solid #f87171;border-radius:6px;padding:2px 8px;background:transparent}
+  /* TIMER */
+  #timer{font-size:34px;font-weight:800;text-align:center;color:#facc15;font-variant-numeric:tabular-nums}
+  .tbtns{display:flex;gap:8px;margin-top:12px}
+  .tbtn{flex:1;padding:11px;border:none;border-radius:10px;background:#16233c;color:#e2e8f0;font-weight:700;font-size:13px;cursor:pointer;border:1px solid #24355a}
+  .tbtn.on{background:#16a34a;color:#052e16}
+  /* ACCORDION */
+  details{background:#0a1120;border:1px solid #1c2c47;border-radius:12px;margin-bottom:8px;overflow:hidden}
+  summary{padding:12px 14px;font-weight:700;cursor:pointer;font-size:13px;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:'▾';float:right;color:#475569}
+  details[open] summary::after{content:'▴'}
+  .body{padding:0 14px 14px;font-size:12.5px;line-height:1.7;color:#a7b6d2}
+  .body b{color:#e2e8f0}
+  .ul{margin:6px 0 6px 16px}
+  .ul li{margin-bottom:5px}
+  /* SCAM */
+  .scam{background:#160b0b;border:1px solid #7f1d1d}
+  .s-tag{display:inline-block;font-size:9.5px;font-weight:800;padding:2px 8px;border-radius:99px;margin-right:4px}
+  .s-red{background:#7f1d1d;color:#fca5a5}.s-green{background:#14532d;color:#4ade80}
+  .rule{margin-bottom:10px;font-size:12.5px}
+  footer{text-align:center;color:#44536f;font-size:11px;margin-top:26px;line-height:1.8;padding:0 18px}
+  footer .k{color:#5b6c8f;font-weight:700}
+  .note{font-size:11px;color:#5b6c8f;margin-top:8px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>🚜 <span class="grad">PetaniDolar</span></h1>
+  <div class="sub">Tanam cuan tiap hari → panen dolar. Satu dashboard buat SEMUA sumber cuan lo.</div>
+  <div class="date" id="dateNow"></div>
+  <div class="verified">✅ 40+ platform terverifikasi bayar • 0 scam • 0 modal</div>
+</header>
+
+<!-- ============ STATS ============ -->
+<div class="card">
+  <div class="stats">
+    <div class="stat"><div class="lbl">Target Minggu</div><div class="val b" id="tgt">$20</div></div>
+    <div class="stat"><div class="lbl">Terkumpul</div><div class="val g" id="week">$0</div></div>
+    <div class="stat"><div class="lbl">Hari Ini</div><div class="val y" id="today">$0</div></div>
+    <div class="stat"><div class="lbl">Kurang</div><div class="val" id="rem">$0</div></div>
+  </div>
+  <div class="bars">
+    <div class="lab"><span>Progres target minggu</span><span id="pct"></span></div>
+    <div class="bar-bg"><div class="bar-fill" id="barW"></div></div>
+    <div class="lab"><span>Target hari ini (minggu ÷ 7)</span><span id="dayLab"></span></div>
+    <div class="bar-bg"><div class="bar-fill" id="barD" style="background:linear-gradient(90deg,#eab308,#facc15)"></div></div>
+  </div>
+  <div id="flash">Selamat datang di PetaniDolar! Pilih platform, kerja, catat, cair. 💪</div>
+</div>
+
+<!-- ============ CATALOG ============ -->
+<div class="card" style="padding:16px 0">
+  <h2 style="padding:0 16px">🌍 Peta Cuan Global <small>— semua jalur yang beneran bayar, riset 2026</small></h2>
+  <div class="chips" id="chips"></div>
+  <div class="search"><input id="q" placeholder="🔎 Cari platform… mis. captcha, survei, ngajar, toloka" oninput="renderGrid()"></div>
+  <div class="grid" id="grid"></div>
+  <div class="note" style="padding:0 16px">⚠️ Angka rate, minimal tarik & ketersediaan cek per Agustus–September 2026, bisa berubah — selalu cek di situs resminya. Semua situs di atas = daftar GRATIS.</div>
+</div>
+
+<!-- ============ QUICK ADD ============ -->
+<div class="card">
+  <h2>➕ Catat Cuan <small>2 detik, langsung jalan</small></h2>
+  <label>Platform</label>
+  <select id="selPlat"></select>
+  <div class="row">
+    <button class="qbtn" onclick="addQ(0.25)">+$0.25</button>
+    <button class="qbtn" onclick="addQ(0.50)">+$0.50</button>
+    <button class="qbtn g" onclick="addQ(1)">+$1</button>
+    <button class="qbtn g" onclick="addQ(2)">+$2</button>
+  </div>
+  <label>Mode 2Captcha: berapa captcha? <small style="color:#4d5f82">(otomatis ke $)</small></label>
+  <div class="row">
+    <input id="capN" type="number" min="0" placeholder="mis. 500" style="flex:1">
+    <button class="qbtn g" style="max-width:96px" onclick="addCap()">Catat</button>
+  </div>
+  <div class="hint" id="capHint">Rate captcha lo: $0.50 / 1.000 — bisa diubah di Pengaturan.</div>
+  <label>Atau manual ($) — dari platform mana pun</label>
+  <div class="row">
+    <input id="manN" type="number" step="0.01" min="0" placeholder="mis. 1.50" style="flex:1">
+    <button class="qbtn g" style="max-width:96px" onclick="addMan()">Simpan</button>
+  </div>
+</div>
+
+<!-- ============ TRACK ============ -->
+<div class="card">
+  <h2>💰 Saldo per Platform <small>— bar hijau = siap cair! 💸</small></h2>
+  <div id="plats"></div>
+</div>
+
+<!-- ============ TIMER ============ -->
+<div class="card">
+  <h2>⏱️ Timer Sesi Kerja</h2>
+  <div id="timer">25:00</div>
+  <div class="tbtns">
+    <button class="tbtn on" onclick="setMode(25)">⚡ 25 menit</button>
+    <button class="tbtn" onclick="setMode(15)">15 menit</button>
+    <button class="tbtn" onclick="setMode(5)">5 menit</button>
+  </div>
+  <div class="tbtns">
+    <button class="tbtn g" onclick="tStart()">▶ Mulai</button>
+    <button class="tbtn" onclick="tPause()">⏸ Jeda</button>
+    <button class="tbtn" onclick="tReset()">↺ Ulang</button>
+  </div>
+</div>
+
+<!-- ============ HISTORY ============ -->
+<div class="card">
+  <h2>📋 Riwayat <small>(hijau = masuk, biru = tarik dana)</small></h2>
+  <div id="hist"></div>
+  <button class="ghost" onclick="exportCSV()">⬇️ Ekspor ke CSV / Excel</button>
+  <button class="ghost" onclick="resetAll()">🗑️ Reset semua data</button>
+</div>
+
+<!-- ============ SETTINGS ============ -->
+<div class="card">
+  <h2>⚙️ Pengaturan</h2>
+  <div class="row">
+    <div style="flex:1"><label>Target minggu ($)</label><input id="sTgt" type="number" step="1" value="20"></div>
+    <div style="flex:1"><label>Rate ($/jam)</label><input id="sRate" type="number" step="0.1" value="0.8"></div>
+    <div style="flex:1"><label>Captcha ($/1000)</label><input id="sCap" type="number" step="0.1" value="0.5"></div>
+  </div>
+  <label>Minimal tarik tiap platform (bisa lo ubah sesuai update terbaru)</label>
+  <div id="minSet"></div>
+  <button class="main" onclick="saveSettings()">💾 Simpan Pengaturan</button>
+</div>
+
+<!-- ============ GUIDE ============ -->
+<div class="card">
+  <h2>📖 Cara Main <small>— buka tiap bagian</small></h2>
+  <details open>
+    <summary>🥇 Mulai hari ini: 3 jalan tercepat (nol bahasa Inggris)</summary>
+    <div class="body">
+      <b>1. 2Captcha</b> — ngetik captcha. Tanpa batas, 24 jam, tarik $2 → Payeer. <span class="star">★</span> 0 skill.<br>
+      <b>2. Toloka</b> — label gambar/data. Tarik $1–5, kasih tugas terus.<br>
+      <b>3. Freecash</b> — minimum $5, cair menit–jam ke PayPal.<br><br>
+      Daftar ketiganya <b>GRATIS</b> hari ini juga. Pangkal: 2Captcha, makin cepat makin banyak.
+    </div>
+  </details>
+  <details>
+    <summary>💵 Alur pencairan (PayPal & Payeer → Rupiah)</summary>
+    <div class="body">
+      <b>PayPal</b> (paypal.com) — rekening dolar utama, tarik ke bank lokal (BCA/BRI/dll).<br>
+      <b>Payeer</b> (payeer.com) — dipakai 2Captcha & beberapa platform, gratis daftar.<br>
+      <b>Exchanger</b> — tukar Payeer/PayPal ke Rupiah (cari exchanger terpercaya, bandingkan rate).<br><br>
+      Alur: <b>Platform → PayPal/Payeer → Rupiah → DANA / bank.</b> Semua gratis daftar, nol potongan rahasia.
+    </div>
+  </details>
+  <details>
+    <summary>🚨 Aturan wajib</summary>
+    <div class="body">
+      <b>a.</b> Nggak pernah keluar duit. Nol. Minta deposit = scam.<br>
+      <b>b.</b> Tiap sesi selesai → catat di dashboard (2 detik).<br>
+      <b>c.</b> Saldo kebentok minimal → <b>cair HARI ITU</b>, jangan ditimbun.<br>
+      <b>d.</b> Maksimal 2–3 platform captcha sekaligus — fokus soalnya.<br>
+      <b>e.</b> Akurasi > kecepatan. Salah ketik = nilai lo turun.
+    </div>
+  </details>
+</div>
+
+<!-- ============ SCAM ============ -->
+<div class="card scam">
+  <h2>🚨 Alarm Scam <small>— hafal ini, selamanya aman</small></h2>
+  <div class="body" style="padding:0">
+    <div class="rule"><span class="s-tag s-red">SCAM</span>"Like video YouTube dibayar $5/video" di Telegram/WA → <b>kabur</b>.</div>
+    <div class="rule"><span class="s-tag s-red">SCAM</span>Deposit / modal / biaya aktivasi / "buka kunci tugas" → <b>kabur</b>.</div>
+    <div class="rule"><span class="s-tag s-red">SCAM</span>Robot trading, binary option, titip dana, investasi "100rb jadi 1jt" → <b>kabur</b>.</div>
+    <div class="rule"><span class="s-tag s-red">SCAM</span>Minta data kartu/password/OTP → <b>kabur</b>.</div>
+    <div class="rule"><span class="s-tag s-green">SEHAT</span>Kerja beneran selalu: <b>daftar gratis → kerja → saldo kebaca → tarik dana.</b> Itu aja alurnya.</div>
+  </div>
+</div>
+
+<footer>
+  <span class="k">PetaniDolar v2.0</span> — data lo tersimpan di perangkat (localStorage), nggak dikirim ke mana-mana.<br>
+  Ini alat bantu disiplin, <b>bukan</b> bot captcha — kerja tetap lo kerjain sesuai aturan platform.<br>
+  💡 Di HP: menu browser → "Add to Home Screen" → kayak aplikasi beneran.
+</footer>
+
+<script>
+"use strict";
+/* ================= DATA ================= */
+var CATS=[
+  {id:'captcha',label:'⌨️ Captcha / Ketik'},
+  {id:'ai',label:'🤖 Mikrotugas AI'},
+  {id:'survey',label:'📋 Survei & GPT'},
+  {id:'test',label:'📱 Tes Website/App'},
+  {id:'write',label:'✍️ Nulis & Transkripsi'},
+  {id:'trans',label:'🌐 Terjemahan'},
+  {id:'teach',label:'🎓 Ngajar Online'},
+  {id:'digital',label:'🎨 Produk Digital'},
+  {id:'free',label:'💼 Freelance'}
+];
+/* rate = estimasi bayaran, min = minimal tarik (<=0 artinya mingguan), id: true=bisa dari Indonesia, 'eng'=butuh Inggris bagus, 'cty'=negara terbatas */
+var PLATS=[
+  /* --- CAPTCHA --- */
+  {n:'2Captcha',cat:'captcha',star:5,rate:'$0,5–1,5/jam',min:2,pay:'Payeer • BTC',id:true,rec:true,url:'https://2captcha.com',
+   d:'Ngetik captcha. Tanpa batas harian, 24 jam, nol skill, nol bahasa Inggris. Sabuk utama lo di minggu-minggu awal. Aplikasi Android resmi tersedia di Play Store.',
+   tip:'Akurasi > kecepatan. 1.000 captcha ≈ $0,3–1. Target harian 3.000 = $1–3.'},
+  {n:'Kolotibablo',cat:'captcha',star:4,rate:'$0,5–1/jam',min:1,pay:'Payeer • Payza',id:true,url:'https://kolotibablo.com',
+   d:'Platform captcha kedua. Sistemnya persis 2Captcha — buka 2 tab, kalau 2Captcha sepi langsung pindah. Akses penting pas jam sepi.'},
+  {n:'MegaTypers',cat:'captcha',star:3,rate:'$0,25–1/jam',min:3,pay:'PayPal • Payeer',id:true,url:'https://megatypers.com',
+   d:'Captcha ketiga. Berguna banget pas 2 platform utama lagi sepi — 3 akun paralel = target tarik 3× lebih cepat.'},
+  /* --- AI MICROTASK --- */
+  {n:'Toloka',cat:'ai',star:5,rate:'$3–12/jam',min:1,pay:'PayPal',id:true,rec:true,url:'https://toloka.ai',
+   d:'Label gambar, teks, data & tugas AI pendek. Bayaran per tugas kebaca sebelum dikerjain. Stok tugas gede, bahasanya ringan. Salah satu platform paling gampang buat orang Indonesia.',
+   tip:'Kerjain per pagi & sore — tugas sering habis tengah hari.'},
+  {n:'Remotasks',cat:'ai',star:4,rate:'$9–17/jam',min:0,pay:'PayPal • USDT (mingguan)',id:true,rec:true,url:'https://www.remotasks.com',
+   d:'Annotasi gambar/video/teks buat AI. Butuh lulus training dulu (gratis). Bayaran paling tinggi di kelas mikrotugas. Bayar mingguan, nggak ada minimal tarik yang ketat.',
+   tip:'Ada tugas "expert" (RLHF, coding) sampai $20–50/jam.'},
+  {n:'Clickworker (UHRS)',cat:'ai',star:4,rate:'$5–12/jam',min:10,pay:'PayPal • Payoneer (mingguan)',id:true,url:'https://www.clickworker.com',
+   d:'Mikrotugas + UHRS (menilai hasil pencarian/iklan). Bayar tiap minggu Rabu–Jumat. WAJIB lulus sertifikasi gratis dulu di tab "Certifications". Data entry & riset web juga ada.'},
+  {n:'Microworkers',cat:'ai',star:4,rate:'$2–6/jam',min:9,pay:'PayPal • Payoneer',id:true,url:'https://www.microworkers.com',
+   d:'Tugas kecil: uji aplikasi, entri data, cek link, klasifikasi. Aktivasi akun instan, terima pekerja dari 80+ negara. Approval task 3–14 hari — jangan panik kalau duit belum masuk.'},
+  {n:'Appen',cat:'ai',star:4,rate:'$5–20/jam',min:0,pay:'PayPal • Payoneer (bulanan)',id:true,url:'https://www.appen.com',
+   d:'Salah satu raksasa data AI dunia (170+ negara). Proyek: pencarian, transkripsi, evaluasi. Daftar dulu, proyek baru dikirim pas lo cocok. Bayar bulanan — ini buat jangka menengah.'},
+  {n:'TELUS Digital AI',cat:'ai',star:4,rate:'$8–14/jam',min:0,pay:'Payoneer (bulanan)',id:true,url:'https://www.telusinternational.ai',
+   d:'(dulu Lionbridge). Rating/evaluasi pencarian & data AI. 100+ negara termasuk Indonesia. Persis Appen: daftar, tunggu proyek, bayar bulanan.'},
+  {n:'Outlier (Scale AI)',cat:'ai',star:4,rate:'$15–40/jam',min:0,pay:'Paypal • Payoneer (2 mingguan)',id:'eng',url:'https://outlier.ai',
+   d:'Proyek AI premium (coding, matematika, expert). Daftar gratis; ketersediaan proyek tergantung negara & bahasa. Kalau lolos, ini kelas bayaran mahal.'},
+  {n:'Alignerr',cat:'ai',star:3,rate:'$15–70/jam',min:0,pay:'Stripe • PayPal',id:'eng',url:'https://alignerr.com',
+   d:'AI trainer untuk proyek spesialis (STEM, medis, hukum) — rekrut global. Low entry, tapi yang utamanya butuh keahlian.'},
+  {n:'DataAnnotation.tech',cat:'ai',star:4,rate:'$15–25/jam',min:0,pay:'PayPal',id:'cty',url:'https://www.dataannotation.tech',
+   d:'Salah satu yang paling gede bayarannya — tapi hampir selalu cuma buat US/UK/CA/AU/NZ. Coba daftar aja; kalau ditolak, jangan sedih, pindah Appen/TELUS.'},
+  /* --- SURVEY & GPT --- */
+  {n:'Prolific',cat:'survey',star:5,rate:'$8–15/jam',min:6,pay:'PayPal',id:true,rec:true,url:'https://www.prolific.com',
+   d:'Survei riset akademik (universitas) — bayarannya paling adil di kelas survei, nggak buang waktu. Ada dari Indonesia, survei muncul di waktu-waktu tertentu. Isi profil lengkap biar sering kebagian.'},
+  {n:'Freecash',cat:'survey',star:5,rate:'$1–20/hari',min:5,pay:'PayPal • kripto (INSTAN)',id:true,rec:true,url:'https://freecash.com',
+   d:'Tugas + offer + game. Waktu & bayaran kebaca sebelum mulai. Minimal tarik $5, proses menit–beberapa jam = paling cepat cair di kelas survei.'},
+  {n:'AttaPoll',cat:'survey',star:4,rate:'$1–4/jam',min:3,pay:'PayPal • crypto',id:true,url:'https://www.attapoll.app',
+   d:'Aplikasi survei HP (Android/iOS). Pendek-pendek, sering, min tarik cuma $3. Cocok diisi pas nunggu angkot.'},
+  {n:'Swagbucks',cat:'survey',star:4,rate:'$1–3/jam',min:5,pay:'PayPal • gift card',id:true,url:'https://www.swagbucks.com',
+   d:'Survei, nonton video, belanja, search. Poin SB → PayPal. Platform GPT paling tua & paling terbukti (sejak 2008).'},
+  {n:'ySense',cat:'survey',star:4,rate:'$1–4/jam',min:3,pay:'PayPal • Payoneer',id:true,url:'https://www.ysense.com',
+   d:'Survei + tugas + offer, min tarik rendah, bayar ke PayPal. Lama jalan dan terpercaya.'},
+  {n:'Timebucks',cat:'survey',star:3,rate:'$1–3/jam',min:2,pay:'Payeer • crypto',id:true,url:'https://timebucks.com',
+   d:'Kaya 2Captcha versi GPT: ada tugas ketik juga, min tarik $2 lewat Payeer — cocok digabung sama payout 2Captcha.'},
+  {n:'PrizeRebel',cat:'survey',star:3,rate:'$1–3/jam',min:5,pay:'PayPal • gift card',id:true,url:'https://www.prizerebel.com',
+   d:'Survei & tawaran. Min tarik rendah. Banyak task "figure it out" yang bikin cepet jenuh — pakai buat selingan.'},
+  {n:'YouGov',cat:'survey',star:3,rate:'±$1–2/jam',min:0,pay:'Poin → voucher',id:true,url:'https://yougov.com',
+   d:'Survei opini global ternama. Poinnya lumayan lama ke voucher — isi waktu luang doang, jangan jadi andalan.'},
+  {n:'Toluna',cat:'survey',star:3,rate:'$1–2/jam',min:10,pay:'PayPal • voucher',id:true,url:'https://www.toluna.com',
+   d:'Survei + komunitas. Min tarik $10 via PayPal — butuh sabar. Buat nambah-nambah.'},
+  /* --- WEBSITE/APP TESTING --- */
+  {n:'UserTesting',cat:'test',star:5,rate:'$10–60/test',min:0,pay:'PayPal (7 hari)',id:'eng',rec:true,url:'https://www.usertesting.com',
+   d:'Rekam layar sambil ngomongin pengalaman pakai website/app. 20 menit = $10, tes panjang $30–60. Butuh Inggris lisan lumayan + mikrofon. Rating 4,5★ ke atas = makin sering dapet tes. Bayar via PayPal ±7 hari.'},
+  {n:'Userlytics',cat:'test',star:4,rate:'$5–15/test',min:5,pay:'PayPal',id:'eng',url:'https://www.userlytics.com',
+   d:'Tes website & app, bayaran per tes. Lengkapi screener biar sering lolos.'},
+  {n:'TestingTime',cat:'test',star:4,rate:'$5–90/sesi',min:0,pay:'PayPal (campuran)',id:'eng',url:'https://www.testingtime.com',
+   d:'Riset UX: sesi live 30–90 menit, bayaran bisa gede (kadang $30–90). Sesinya nggak selalu ada — daftar dan tunggu undangan.'},
+  {n:'Userfeel',cat:'test',star:3,rate:'$10/test (20 mnt)',min:0,pay:'PayPal (mingguan)',id:'eng',url:'https://www.userfeel.com',
+   d:'Tes 20 menit bayar $10. Kuota tiap negara beda-beda — cek ketersediaan Indonesia pas daftar.'},
+  {n:'PlaybookUX',cat:'test',star:4,rate:'$10–60/sesi',min:0,pay:'PayPal',id:'eng',url:'https://www.playbookux.com',
+   d:'Wawancara & tes kegunaan, bayaran per sesi. Screeners detail — isi jujur biar match.'},
+  {n:'dscout',cat:'test',star:4,rate:'$5–100+/sesi',min:0,pay:'PayPal/LocalPay',id:'eng',url:'https://dscout.com',
+   d:'Riset UX & diary studies; sesinya bisa sampe $100. Kuota buat Indonesia jarang tapi sering buat yang Inggris bagus.'},
+  {n:'User Interviews',cat:'test',star:4,rate:'$50–150/riset',min:0,pay:'PayPal (via Tremendous)',id:'eng',url:'https://www.userinterviews.com',
+   d:'Yang paling gede kelas riset. Kandidat US/UK dominan — kuota Asia terbatas, tapi gratis buat coba.'},
+  /* --- WRITING & TRANSCRIPTION --- */
+  {n:'Textbroker',cat:'write',star:4,rate:'$0,5–2,5/jam nulis (per kata)',min:10,pay:'PayPal',id:'eng',url:'https://www.textbroker.com',
+   d:'Nulis artikel SEO berbahasa Inggris sesuai brief. Butuh nulis Inggris bener — tes masuk dulu. Cocok buat lo yang mau naik kelas kualitas nulis.'},
+  {n:'iWriter',cat:'write',star:3,rate:'$10–50/artikel',min:10,pay:'PayPal • Payoneer',id:'eng',url:'https://iwriter.com',
+   d:'Sistem tingkat penulis (basic → elite). Makin tinggi level, makin mahal artikelnya. Mulai dari artikel pendek dulu.'},
+  {n:'Listverse',cat:'write',star:3,rate:'$100/artikel',min:0,pay:'PayPal',id:'eng',url:'https://listverse.com',
+   d:'Tulis daftar topik aneh-menarik, $100 per artikel yang diterima. Persaingan ketat, tapi temanya bebas & seru.'},
+  {n:'ProBlogger Jobs',cat:'write',star:4,rate:'$30–150/artikel',min:0,pay:'Bervariasi',id:'eng',url:'https://www.problogger.com/jobs/',
+   d:'Job board buat nulis konten — employer post, lo apply. Bayar per artikel/posisi. Ini pintu ke klien tetap.'},
+  {n:'Rev (transkripsi)',cat:'write',star:4,rate:'$0,3–1,3/menit audio',min:0,pay:'PayPal (mingguan)',id:'eng',url:'https://www.rev.com',
+   d:'Transkripsi audio + subtitle Inggris. Tes daftar cukup ketat (nilai minimal 90%), tapi bayarannya mingguan & rutin.'},
+  {n:'GoTranscript',cat:'write',star:3,rate:'$0,5–0,9/menit audio',min:10,pay:'PayPal',id:true,url:'https://gotranscript.com',
+   d:'Transkripsi — minimal tarik $10, bayar tiap minggu. Lebih gampang masuknya dari Rev. Butuh telinga Inggris yang cukup tajam.'},
+  /* --- TRANSLATION --- */
+  {n:'Gengo',cat:'trans',star:4,rate:'$0,05–0,2/kata',min:30,pay:'PayPal • Payoneer',id:true,url:'https://gengo.com',
+   d:'Terjemahan Inggris↔Indonesia (dan bahasa lain). Lulus tes dulu, level naik bikin tarif naik. Proyek sering nongol tiap hari.'},
+  {n:'ProZ',cat:'trans',star:3,rate:'$0,05–0,2/kata',min:20,pay:'PayPal • transfer bank',id:true,url:'https://www.proz.com',
+   d:'Komersial: direct client & project manager. Pasang profil bagus, bid proyek. Pasar terjemahan terbesar di dunia.'},
+  {n:'OneSky',cat:'trans',star:3,rate:'Variatif',min:0,pay:'PayPal',id:true,url:'https://www.oneskyapp.com',
+   d:'Terjemahan + review linguistik. Daftar, tunggu undangan proyek sesuai pasangan bahasa.'},
+  /* --- TEACHING --- */
+  {n:'Preply',cat:'teach',star:4,rate:'$10–30/jam',min:0,pay:'PayPal • bank (tiap 30 hari)',id:true,rec:true,url:'https://preply.com',
+   d:'Ngajarin bahasa (Indonesia, Inggris, dll.) atau subjek lain ke pelajar dunia. Lo yang tentukan tarif. Pelajar baru nongol dari profil & video intro — bikin video 1–2 menit yang meyakinkan.'},
+  {n:'italki',cat:'teach',star:4,rate:'$8–20/jam',min:0,pay:'PayPal',id:true,url:'https://www.italki.com',
+   d:'Les bahasa 1-on-1, jam fleksibel. Posisikan diri sebagai tutor bahasa Indonesia — pasar GEDE buat itu.'},
+  {n:'Cambly',cat:'teach',star:3,rate:'$10–17/jam',min:0,pay:'PayPal (mingguan)',id:'eng',url:'https://www.cambly.com',
+   d:'Ngobrol Inggris dengan murid internasional. Nggak perlu sertifikasi — tapi Inggris lisan lo harus lancar & natural.'},
+  {n:'Superprof',cat:'teach',star:3,rate:'$5–25/jam',min:0,pay:'Bervariasi',id:true,url:'https://www.superprof.com',
+   d:'Pasang profil guru (apa pun subjeknya), murid cari lo. Simple, tapi lo yang jemput klien sendiri.'},
+  /* --- DIGITAL PRODUCTS --- */
+  {n:'Etsy (produk digital)',cat:'digital',star:5,rate:'$100–1.000+/bln (pelan tapi pasif)',min:0,pay:'PayPal (mingguan)',id:true,rec:true,url:'https://www.etsy.com',
+   d:'Jual template CV, undangan, planner, wallpaper digital. Sekali upload, kejual terus. Ini class berlapis: bikin 1, jual 100×. Pasar terbesar produk digital.'},
+  {n:'Gumroad',cat:'digital',star:4,rate:'$10–500/bln',min:10,pay:'PayPal',id:true,url:'https://gumroad.com',
+   d:'Toko digital simpel: e-book, template, preset, kursus. Lo atur harga, duit cair tiap ada jualan.'},
+  {n:'Payhip',cat:'digital',star:4,rate:'$10–500/bln',min:0,pay:'PayPal',id:true,url:'https://payhip.com',
+   d:'Sama kayak Gumroad tapi komisi lebih kecil & fitur affiliate bawaan. Jual file digital tanpa ribet.'},
+  {n:'Creative Market',cat:'digital',star:4,rate:'$50–500/bln',min:0,pay:'PayPal',id:true,url:'https://creativemarket.com',
+   d:'Pasar khusus desain: font, template Canva, mockup, preset. Perlu submit 10–15 item dulu sebelum shop lo buka.'},
+  {n:'Ko-fi',cat:'digital',star:3,rate:'Variatif',min:0,pay:'PayPal (mingguan)',id:true,url:'https://ko-fi.com',
+   d:'Terima "tip" + jual produk digital kecil. Cocok pas lo udah punya audiens di sosmed.'},
+  {n:'Udemy',cat:'digital',star:4,rate:'Pasif, variatif',min:10,pay:'PayPal • Payoneer (bulanan)',id:true,url:'https://www.udemy.com',
+   d:'Bikin kursus (bahasa, bisnis, apa pun) → dijual ke jutaan murid. Bayaran pasif dari satu produksi. Prosesnya lama, hasilnya bisa gede.'},
+  /* --- FREELANCE --- */
+  {n:'Upwork',cat:'free',star:5,rate:'$8–60/jam',min:10,pay:'PayPal • Payoneer • direct',id:true,rec:true,url:'https://www.upwork.com',
+   d:'Pasar freelance terbesar dunia. Proyek: nulis, desain, VA, dev, marketing. Mulai bayar murah, naikin rate pas review bagus. Butuh bid pakai "Connects" gratis bulanan.'},
+  {n:'Fiverr',cat:'free',star:5,rate:'$5–500/gig',min:5,pay:'PayPal • Payoneer',id:true,rec:true,url:'https://www.fiverr.com',
+   d:'Jual jasa dalam paket ("gig"): desain Canva, logo, voice over, caption, video pendek. Klien datang ke lo, nggak perlu bid. Pilih niche yang lo paling bisa.'},
+  {n:'Freelancer.com',cat:'free',star:4,rate:'$5–40/jam',min:30,pay:'PayPal • Skrill',id:true,url:'https://www.freelancer.com',
+   d:'Bid proyek global + ada kontes desain/code yang bayar buat pemenang. Volume proyek gede, kompetisi juga gede.'},
+  {n:'PeoplePerHour',cat:'free',star:4,rate:'$10–50/jam',min:20,pay:'PayPal • bank',id:'eng',url:'https://www.peopleperhour.com',
+   d:'Fokus klien Eropa, terutama UK. Jual "hourlies" (jasa paket) + bid proyek.'},
+  {n:'99designs',cat:'free',star:4,rate:'$50–1.500/kontes',min:0,pay:'PayPal • Payoneer',id:true,url:'https://99designs.com',
+   d:'Kontes desain: klien post budget, desainer ikut, pemenang dibayar. Bagus buat desainer yang mau portofolio + duit.'},
+  {n:'Toptal',cat:'free',star:5,rate:'$40–120/jam',min:0,pay:'Payoneer • transfer',id:'eng',url:'https://www.toptal.com',
+   d:'Kasta tertinggi freelance: screening ketat (interview + uji teknis), klien korporat. Bukan buat minggu pertama — target 6–12 bulan ke depan.'},
+  {n:'Guru.com',cat:'free',star:3,rate:'$10–40/jam',min:0,pay:'PayPal • Payoneer',id:true,url:'https://www.guru.com',
+   d:'Platform freelance lama dengan escrow (SafePay). Proyek IT, penulisan, administrasi. Kompetisi lebih kecil dari Upwork.'}
+];
+var REC={'2Captcha':'🏆 🏆 •••','Toloka':'🤖 •••','Remotasks':'🧠 •••','Prolific':'📋 •••','Freecash':'⚡ •••','UserTesting':'📱 •••','Etsy (produk digital)':'🎨 •••','Preply':'🎓 •••','Upwork':'💼 •••','Fiverr':'🛒 •••'};
+
+/* ================= STORAGE ================= */
+var LS=null;try{localStorage.setItem('__t','1');localStorage.removeItem('__t');LS=localStorage;}catch(e){LS=null;}
+var K={s:'petanidollar_v2_settings',d:'petanidollar_v2_data'};
+function $(id){return document.getElementById(id);}
+function fmt(n){return '$'+(Math.round(n*100)/100).toFixed(2);}
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function weekStart(){var d=new Date();var day=(d.getDay()+6)%7;d.setHours(0,0,0,0);d.setDate(d.getDate()-day);return d.getTime();}
+var DAYS=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+
+var S={target:20,rate:0.8,capRate:0.5,mins:{}};
+PLATS.forEach(function(p){S.mins[p.n]=p.min;});
+var E=[];
+
+function load(){
+  try{
+    if(LS){
+      var s=JSON.parse(LS.getItem(K.s)||'null');if(s)S=s;
+      E=JSON.parse(LS.getItem(K.d)||'[]');
+    }
+  }catch(e){}
+  PLATS.forEach(function(p){if(!(p.n in S.mins))S.mins[p.n]=p.min;});
+}
+function save(){try{if(LS){LS.setItem(K.s,JSON.stringify(S));LS.setItem(K.d,JSON.stringify(E));}}catch(e){}}
+
+/* ================= TRACK DATA ================= */
+function weekTotal(){var t=weekStart(),s=0;E.forEach(function(e){if(e.type==='in'&&e.ts>=t)s+=e.amt;});return s;}
+function todayTotal(){var t=todayStr(),s=0;E.forEach(function(e){if(e.type==='in'&&e.date===t)s+=e.amt;});return s;}
+function platBal(n){var s=0;E.forEach(function(e){if(e.plat===n)s+=(e.type==='in'?e.amt:-e.amt);});return s;}
+function platMin(n){return S.mins[n]||1;}
+
+/* ================= ADD ================= */
+function addEntry(t,p,task,a){
+  E.push({id:Date.now()+Math.random(),type:t,plat:p,task:task||'',amt:Math.round(a*100)/100,date:todayStr(),ts:Date.now()});
+  save();render();checkPayout(p);
+}
+function selPlat(){return $('selPlat').value;}
+function addQ(v){addEntry('in',selPlat(),'quick',v);flash('✅ +'+fmt(v)+' di '+selPlat(),'g');}
+function addCap(){
+  var n=parseFloat($('capN').value);
+  if(!n||n<=0){flash('Isi dulu berapa captcha, bro.','r');return;}
+  var a=Math.max(0.01,Math.round(n/1000*S.capRate*100)/100);
+  addEntry('in',selPlat(),n+' captcha',a);$('capN').value='';
+  flash('✅ '+n+' captcha = '+fmt(a)+' ('+fmt(S.capRate)+'/1.000). Gas!','g');
+}
+function addMan(){
+  var a=parseFloat($('manN').value);
+  if(!a||a<=0){flash('Isi nominalnya (mis. 1.50)','r');return;}
+  addEntry('in',selPlat(),'',a);$('manN').value='';
+  flash('✅ Tercatat '+fmt(a),'g');
+}
+function checkPayout(p){
+  var b=platBal(p),m=platMin(p);
+  if(b>=m){flash('💸 '+p+' MENTOK '+fmt(b)+' — CAIR SEKARANG (tombol di bawah)!','g');}
+}
+
+/* ================= CATALOG RENDER ================= */
+var CUR='all';
+function renderChips(){
+  var h='<button class="chip'+(CUR==='all'?' on':'')+'" onclick="setCat(\'all\')">🔥 Semua</button>';
+  CATS.forEach(function(c){h+='<button class="chip'+(CUR===c.id?' on':'')+'" onclick="setCat(\''+c.id+'\')">'+c.label+'</button>';});
+  $('chips').innerHTML=h;
+}
+function setCat(c){CUR=c;renderChips();renderGrid();}
+function renderGrid(){
+  var q=($('q').value||'').toLowerCase();
+  var out='',shown=0;
+  PLATS.forEach(function(p){
+    if(CUR!=='all'&&p.cat!==CUR)return;
+    if(q&&(p.n+' '+p.d+' '+p.cat).toLowerCase().indexOf(q)<0)return;
+    shown++;
+    var catLabel='';
+    CATS.forEach(function(c){if(c.id===p.cat)catLabel=c.label;});
+    var idBadge=p.id===true?'<span class="badge b-ok">✅ Bisa dari Indonesia</span>':(p.id==='eng'?'<span class="badge b-warn">🌏 Butuh Inggris bagus</span>':'<span class="badge b-no">🚧 Negara terbatas</span>');
+    var rec=REC[p.n]?'<div style="font-size:10px;color:#a3e635;font-weight:800;margin-top:4px">⭐ REKOMENDASI UTAMA — '+REC[p.n]+'</div>':'';
+    out+='<div class="pc'+(REC[p.n]?' rec':'')+'">'+
+      '<div class="top"><div><div class="nm">'+esc(p.n)+'</div><div class="cat">'+catLabel+'</div>'+rec+'</div><div>'+idBadge+'</div></div>'+
+      '<div class="desc">'+p.d+'</div>'+
+      '<div class="meta"><span>💵 <b>'+p.rate+'</b></span><span>🏧 min <b>'+fmt(p.min)+'</b></span><span>💳 <b>'+p.pay+'</b></span></div>'+
+      '<div class="meta" style="font-size:10.5px;color:#a3e635"><span>💡 '+esc(p.tip||'Daftar GRATIS, kerja, tarik dana.')+'</span></div>'+
+      '<div class="acts"><a class="go" href="'+p.url+'" target="_blank" rel="noopener">🔗 Buka Situs</a><button class="rec2" onclick="quickPlat(\''+p.n.replace(/'/g,"\\'")+'\')">➕ Catat Cuan di Sini</button></div>'+
+      '</div>';
+  });
+  $('grid').innerHTML=shown?out:'<div class="note" style="padding:8px 16px">Nggak ketemu — coba kata kunci lain, atau pilih kategori di atas. 👆</div>';
+}
+function quickPlat(name){
+  var sel=$('selPlat');
+  for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===name){sel.selectedIndex=i;break;}}
+  $('selPlat').scrollIntoView({behavior:'smooth',block:'start'});
+  flash('🎯 '+name+' dipilih di form catat. Isi jumlahnya, simpen!','g');
+}
+
+/* ================= MAIN RENDER ================= */
+function render(){
+  $('tgt').textContent=fmt(S.target);
+  var w=weekTotal(),t=todayTotal();
+  $('week').textContent=fmt(w);$('today').textContent=fmt(t);
+  var rem=Math.max(0,S.target-w);
+  $('rem').textContent=fmt(rem);
+  $('pct').textContent=Math.min(100,Math.round(w/S.target*100))+'%';
+  $('barW').style.width=Math.min(100,w/S.target*100)+'%';
+  var dayT=S.target/7;
+  $('dayLab').textContent=Math.min(100,Math.round(t/dayT*100))+'% dari '+fmt(dayT);
+  $('barD').style.width=Math.min(100,t/dayT*100)+'%';
+  if(rem>0){var hrs=rem/S.rate;$('flash').textContent='Sisa '+fmt(rem)+' ('+hrs.toFixed(1)+' jam di rate $'+S.rate+'/jam). Pilih platform → kerja → catat → cair!';}
+  else{$('flash').textContent='🎉 TARGET MINGGU KEBENTOK! Naikkan target di Pengaturan.';}
+
+  var sel=$('selPlat'),cur=sel.value;
+  sel.innerHTML='';
+  PLATS.forEach(function(p){var o=document.createElement('option');o.value=p.n;o.textContent=p.n+' ('+fmt(S.mins[p.n])+')';sel.appendChild(o);});
+  sel.value=cur&&PLATS.some(function(p){return p.n===cur;})?cur:PLATS[0].n;
+  $('capHint')&&($('capHint').textContent='Rate captcha lo: '+fmt(S.capRate)+' / 1.000 — cek di akun 2Captcha, ubah di Pengaturan.');
+
+  var ph='';
+  PLATS.forEach(function(p){
+    var b=platBal(p.n),m=platMin(p.n),pct=Math.min(100,b/m*100),ready=b>=m;
+    ph+='<div class="plat"><div class="top"><div><span class="name">'+esc(p.n)+'</span><span class="mini">min tarik '+fmt(m)+'</span></div><div><span class="bal '+(ready?'g':'')+'">'+fmt(b)+'</span></div></div>'+
+      '<div class="bar-bg" style="margin-top:8px"><div class="bar-fill" style="width:'+pct+'%;'+(ready?'background:#22c55e':'background:#334155')+'"></div></div>'+
+      '<div class="platbtn">'+(ready?'<button class="cair" id="wd-'+esc(p.n).replace(/ /g,'_')+'" onclick="doWd(\''+p.n.replace(/'/g,"\\'")+'\')">💸 TARIK SEKARANG ('+fmt(b)+')</button>':'<span class="wait">menuju '+fmt(m)+'</span>')+'</div></div>';
+  });
+  $('plats').innerHTML=ph;
+
+  var h=$('hist');
+  if(!E.length){h.innerHTML='<div class="hint">Belum ada catatan. Mulai dari mana? 2Captcha gampang & tanpa batas! 💪</div>';}
+  else{
+    var html='',rev=E.slice().reverse();
+    rev.forEach(function(e,i){var idx=E.length-1-i;
+      html+='<div class="entry"><div><b>'+(e.type==='in'?'+':'− ')+esc(e.plat)+'</b> <span style="color:#5b6c8f;font-size:11px">'+(e.task?esc(e.task)+' • ':'')+e.date+'</span></div><div><span class="'+(e.type==='in'?'amt-in':'amt-out')+'">'+(e.type==='in'?'+':'−')+fmt(e.amt)+'</span><button class="del" onclick="delEntry('+idx+')">hapus</button></div></div>';
+    });
+    h.innerHTML=html;
+  }
+  renderMins();
+}
+function renderMins(){
+  var h='';
+  PLATS.forEach(function(p){
+    h+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span style="flex:1;font-size:12.5px">'+esc(p.n)+'</span><input type="number" step="0.5" min="0.5" value="'+S.mins[p.n]+'" style="max-width:80px" id="min-'+p.n.replace(/[^a-zA-Z0-9]/g,'_')+'"></div>';
+  });
+  $('minSet').innerHTML=h;
+}
+function saveSettings(){
+  S.target=parseFloat($('sTgt').value)||20;
+  S.rate=parseFloat($('sRate').value)||0.8;
+  S.capRate=parseFloat($('sCap').value)||0.5;
+  PLATS.forEach(function(p){
+    var el=$('min-'+p.n.replace(/[^a-zA-Z0-9]/g,'_'));
+    var v=parseFloat(el.value);
+    if(v>0)S.mins[p.n]=v;
+  });
+  save();render();
+  flash('⚙️ Pengaturan tersimpan. Gas!','g');
+}
+function doWd(plat){
+  var b=platBal(plat);
+  if(b<=0)return;
+  if(confirm('Tarik '+fmt(b)+' dari '+plat+'? Catat sebagai penarikan (saldo balik 0).')){
+    addEntry('out',plat,'TARIK',b);
+    flash('💸 '+plat+' dicairin '+fmt(b)+'. Jangan lupa withdraw juga di websitenya ya!','g');
+  }
+}
+function delEntry(i){E.splice(i,1);save();render();flash('Catatan dihapus.','y');}
+function resetAll(){
+  if(confirm('Reset SEMUA data?')){E=[];S={target:20,rate:0.8,capRate:0.5,mins:{}};PLATS.forEach(function(p){S.mins[p.n]=p.min;});save();$('sTgt').value=20;$('sRate').value=0.8;$('sCap').value=0.5;render();flash('Data direset. Mulai dari nol — gas!','g');}
+}
+function exportCSV(){
+  var rows=[['Tanggal','Platform','Tipe','Tugas','Jumlah (USD)']];
+  E.slice().sort(function(a,b){return a.ts-b.ts;}).forEach(function(e){
+    rows.push([e.date,e.plat,e.type==='in'?'Masuk':'Tarik',e.task,(e.type==='in'?'':'−')+e.amt.toFixed(2)]);
+  });
+  var csv='\ufeff'+rows.map(function(r){return r.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  try{
+    var blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download='petanidolar-'+todayStr()+'.csv';
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
+    flash('⬇️ CSV terunduh — buka di Excel/Google Sheets.','g');
+  }catch(e){flash('Unduhan diblokir di preview — buka file langsung di browser lo.','r');}
+}
+function flash(msg,c){var f=$('flash');f.textContent=msg;f.style.color=c==='r'?'#f87171':(c==='y'?'#facc15':'#4ade80');}
+
+/* ================= TIMER ================= */
+var tMode=25,tLeft=1500,tTimer=null;
+function setMode(m){tMode=m;tReset();document.querySelectorAll('.tbtn').forEach(function(b){b.classList.toggle('on',b.textContent.indexOf(m)>-1);});}
+function tStart(){if(tTimer)return;tTimer=setInterval(function(){if(tLeft<=0){clearInterval(tTimer);tTimer=null;flash('⏰ Sesi selesai! Istirahat 5 menit, minum, terus lanjut.','y');tLeft=0;}else{tLeft--;}drawTimer();},1000);}
+function tPause(){if(tTimer){clearInterval(tTimer);tTimer=null;}}
+function tReset(){tPause();tLeft=tMode*60;drawTimer();}
+function drawTimer(){var m=Math.floor(tLeft/60),s=tLeft%60;$('timer').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+
+/* ================= HELPERS ================= */
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+
+/* ================= INIT ================= */
+(function(){
+  var d=new Date();
+  $('dateNow').textContent=DAYS[d.getDay()]+', '+d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+  load();renderChips();render();drawTimer();
+})();
+</script>
+</body>
+</html>
