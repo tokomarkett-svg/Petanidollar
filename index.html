@@ -288,6 +288,12 @@ var WORK=[
    login:'https://2captcha.com/auth/login',
    note:'Login terus tekan "Worker mode" (kanan atas). Di HP: app "2Captcha Bot" di Play Store.',
    app:'https://play.google.com/store/apps/details?id=com.rucaptcha.bot',
+   setup:[
+     {t:"Isi modal \"alternative communication channel\"",d:'Muncul pas pertama login. Select → Telegram/WhatsApp → isi kontak → Save. Tanpa ini nggak bisa Start work.'},
+     {t:'Install RuCaptcha Bot & login pake Client Key',d:'Play Store → cari "2Captcha Bot" (com.rucaptcha.bot) → login: paste Client Key (di 2captcha.com → Solve captchas → Copy) atau scan QR. Client Key = rahasia, jangan dishare.'},
+     {t:'Set metode pencairan: Payeer',d:'Finances → Edit payout method → Payeer (min $2). Belum punya Payeer? Daftar gratis di payeer.com dulu. Nanti saldo nyampe $2 → Request payout.'},
+     {t:'Klik START WORK',d:'Tombol hijau di bawah dashboard 2Captcha. Baru muncul setelah modal komunikasi diisi. Pas aktif → mulai ngetik!'}
+   ],
    tasks:[
      {t:'Captcha Standar (teks)',r:'$0,25–0,60 / 1.000',d:'Gambar teks terdistorsi, ketik apa yang lo lihat. Tugas paling banyak & paling sering muncul.',tip:'Ketik PERSIS apa yang terlihat (huruf besar/kecil ikut gambar). Akurasi > speed.'},
      {t:'Captcha Gambar (image)',r:'$0,30–0,70 / 1.000',d:'Huruf/angka polos tanpa distorsi berat. Lebih cepet diselesaikan dari yang standar.',tip:'Racun utamanya: 0 vs O, 1 vs l. Baca 2× sebelum ketik.'},
@@ -521,6 +527,15 @@ function renderDetail(name){
     '<a class="btn '+(log?'done':'go')+'" href="'+p.login+'" target="_blank" rel="noopener">'+(log?'✅ SUDAH LOGIN — BUKA LAGI':'🔑 LOGIN SEKARANG')+'</a>';
   if(p.app)h+='<a class="btn dim" href="'+p.app+'" target="_blank" rel="noopener">📱 App Android resmi (opsional)</a>';
   h+='<div class="check'+(log?' on':'')+'" onclick="setFlag(\'log\',\''+p.n.replace(/'/g,"\\'")+'\')"><div class="bx">✓</div>Udah bisa login</div></div>';
+
+  /* LANGKAH 2.5: PERSIAPAN SEKALI JALAN */
+  if(p.setup&&p.setup.length){
+    h+='<div class="card"><h2>🧰 Persiapan Sekali <small>— kerjain urut, 5 menit</small></h2>';
+    p.setup.forEach(function(s,i){
+      h+='<div class="step"><div class="ic">'+(i+1)+'</div><div class="tx"><b>'+esc(s.t)+'</b><span>'+esc(s.d)+'</span></div></div>';
+    });
+    h+='</div>';
+  }
 
   /* LANGKAH 3: TUGAS */
   h+='<div class="card"><h2>3️⃣ Pilih Tugas <small>— tiap tombol langsung ke '+esc(p.n)+'</small></h2>';
