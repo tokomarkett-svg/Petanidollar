@@ -282,17 +282,81 @@ var DAYS=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
 
 /* ================= PLATFORM KERJA (detail lengkap: daftar → login → tugas) ================= */
 var WORK=[
-  {n:'2Captcha',em:'⌨️',cat:'Captcha / Ketik',rate:'$0,5–1,5/jam',min:2,pay:'Payeer • BTC',
-   d:'Sabuk utama: ngetik captcha, tanpa batas harian, 24 jam, nol skill. Sabar = konsisten.',
+  {n:'Freecash',em:'⚡',cat:'Game & Offer',rate:'$0,5–30 / offer',min:5,pay:'PayPal • kripto (INSTAN)',
+   d:'MAIN GAME & KERJAIN OFFER — nol ngetik, nol bahasa Inggris. Min $5, cair menit–jam. Ini jalur utama lo sekarang.',
+   signup:'https://freecash.com/',
+   login:'https://freecash.com/',
+   note:'Waktu & bayaran kebaca sebelum mulai. Pilih offer GAME yang syaratnya jelas (mis. "capai level 15" = $2).',
+   setup:[
+     {t:'Daftar GRATIS di freecash.com',d:'Email doang. Klik link daftar di bawah.'},
+     {t:'Pilih offer GAME yang jelas',d:'Cari yang tulisannya "Reach level X" — target jelas, nggak minta lo keluar uang. SKIP semua offer yang minta deposit/belanja!'},
+     {t:'Mainkan sampai syarat kebentok',d:'Install di HP, main serius, pastiin syaratnya (level/quest) beneran kelar.'},
+     {t:'Tarik $5 → PayPal → DANA/bank',d:'Saat saldo $5, withdraw ke PayPal — cair menit–jam. Dari PayPal tarik ke rekening lokal 1–3 hari.'}
+   ],
+   tasks:[
+     {t:'Offer Game (level/quest)',r:'$0,5–30 / offer',d:'Install game → capai level/syarat tertentu → dibayar. Pas promo, offer gede ($5–30) sering muncul.',tip:'Baca syarat DULU: level berapa, berapa hari. Yang ribet & lama, skip aja. Fokus yang 1–2 hari kelar.'},
+     {t:'Survei Singkat (cadangan)',r:'$0,05–1 / survei',d:'Survei 2–15 menit. Screening dulu, lolos baru dibayar.',tip:'Jawab jujur & konsisten — yang nggak konsisten di-blacklist.'}
+   ]},
+  {n:'Toloka',em:'🤖',cat:'Mikrotugas AI',rate:'$3–12/jam',min:1,pay:'PayPal',
+   d:'TAP-TAP doang: kasih label ke gambar & data AI. Kentara lebih gede dari captcha (3–12× lipat), bayar per tugas kebaca dulu.',
+   signup:'https://toloka.ai/',
+   login:'https://toloka.ai/',
+   note:'Setelah login, ambil kategori "Image labeling / classification" — paling gampang buat pemula.',
+   setup:[
+     {t:'Daftar GRATIS di toloka.ai',d:'Email atau login Google.'},
+     {t:'Ambil tugas label gambar',d:'Klasifikasi foto, anotasi objek, validasi data. Tap-tap aja, nggak ngetik panjang.'},
+     {t:'Tarik min $1–5 ke PayPal',d:'Proses 1–3 hari kerja.'}
+   ],
+   tasks:[
+     {t:'Klasifikasi Gambar',r:'$0,01–0,05 / tugas',d:'Pilih kategori dari foto (ada/nggak ada/manifest). Tugas paling banyak tersedia.',tip:'Kerjain pagi & sore — stok tugas sering habis tengah hari.'},
+     {t:'Anotasi Objek',r:'variatif',d:'Gambar kotak di sekeliling objek (mobil, orang, pohon).',tip:'Baca instruksi dulu ya — kualitas lo nentuin proyek berikutnya.'},
+     {t:'Validasi Data',r:'variatif',d:'Cek kebenaran data: alamat, nomor, nama. Muncul sesekali.',tip:'Kalau ragu jangan asal jawab — ada review silang.'}
+   ]},
+  {n:'AttaPoll',em:'📋',cat:'Survei HP',rate:'$1–4/jam',min:3,pay:'PayPal • kripto',
+   d:'Aplikasi survei di HP: pendek-pendek, sering nongol. Min tarik cuma $3. Pas nganggur — buka, jawab, dapet.',
+   signup:'https://www.attapoll.app/',
+   login:'https://www.attapoll.app/',
+   note:'Install app-nya di Play Store/App Store, daftar, jawab survei pas muncul notifikasi.',
+   tasks:[
+     {t:'Survei Pendek',r:'$0,1–1 / survei',d:'3–10 menit, cocok diisi pas nunggu/numpang. Makin lengkap profil, makin sering dapat.',tip:'Jawab konsisten & jujur. Screening gagal = nggak dibayar, wajar, lanjut aja.'},
+     {t:'Tugas & Poll Cepat',r:'$0,05–0,2 / tugas',d:'Poll singkat harian — gratis, cepat.',tip:'Buka tiap hari, 2 menit = nambah saldo pelan-pelan.'}
+   ]},
+  {n:'Remotasks',em:'🧠',cat:'Mikrotugas AI',rate:'$9–17/jam',min:0,pay:'PayPal • USDT (mingguan)',
+   d:'Anotasi gambar/video/teks buat AI — bayaran tertinggi di kelas mikrotugas. Perlu training gratis dulu.',
+   signup:'https://www.remotasks.com/',
+   login:'https://www.remotasks.com/',
+   note:'Training gratis & wajib. Habis lulus, tugas nongol tiap hari. Bayar mingguan.',
+   tasks:[
+     {t:'Anotasi Gambar (bounding box)',r:'$5–15/jam',d:'Gambar kotak di sekeliling objek di foto/video. Tugas paling umum.',tip:'Ikutin tutorial training-nya — kalau kualitas lo bagus, dapet proyek lebih mahal.'},
+     {t:'RLHF / Evaluasi Respons AI',r:'$15–40/jam',d:'Bandingin & nilai jawaban AI. Butuh paham konteks, tapi bayarannya gede.',tip:'Muncul buat yang udah terbukti akurat — jaga rating lo.'}
+   ]},
+  {n:'TikTok Shop Affiliate',em:'🎬',cat:'Upload Video → Komisi',rate:'Rp50rb–500rb+/bln (panen belakangan)',min:0,pay:'Dana • bank (komisi per jualan)',
+   d:'UPLOAD VIDEO yang beneran: review produk + keranjang kuning → dibayar KOMISI tiap barang kejual. Nol ngetik! Tapi butuh ±600 follower & akun 30 hari — mulai sekarang, panen 2–6 minggu lagi.',
+   signup:'https://www.tiktok.com/',
+   login:'https://www.tiktok.com/',
+   note:'Syarat 2026: ±600 follower, akun ≥30 hari, 18+, KTP + rekening. Daftar: Profil → ⋮ → Alat Kreator → TikTok Shop → Daftar sebagai Kreator. Bisa full dari HP.',
+   setup:[
+     {t:'Bangun akun ke ±600 follower',d:'Post 1–2 video/hari (review barang murah viral, unboxing, tips). Fokus satu niche. Ini fase "nembak" 2–6 minggu.'},
+     {t:'Daftar TikTok Shop Affiliate',d:'Profil → ⋮ → Alat Kreator → TikTok Shop → Daftar sebagai Kreator → verifikasi KTP & rekening. Review bisa beberapa jam–minggu.'},
+     {t:'Pilih produk & pasang keranjang kuning',d:'Ambil produk yang lagi laku: butuh verifikasi + produk dicek dulu.'},
+     {t:'Upload video → komisi masuk',d:'Tiap penjualan lewat link lo = komisi (biasanya 5–30%). Cair ke bank/DANA.'}
+   ],
+   tasks:[
+     {t:'Review Produk (video 15–60 detik)',r:'komisi 5–30% / jualan',d:'Video pendek nunjukin barang + kenapa enak. Produk murah viral (alat dapur, skincare, gadget kecil) paling gampang laku.',tip:'Rekam dari HP aja — yang penting jujur & jelas. Volume kunci: makin banyak video, makin banyak jualan.'},
+     {t:'Unboxing / Tutorial',r:'komisi / jualan',d:'Tunjukin isi paket, cara pakai, hasilnya. Cocok kalau lo nggak mau mukanya muncul.',tip:'Video tanpa wajah tetap bisa laku — fokus ke produk & teks di layar.'},
+     {t:'Video "Top 5"/Bandingin',r:'komisi / jualan',d:'List barang terbaik + link keranjang di deskripsi.',tip:'Tren "Top 5" gampang viral & gampang di-edit (screenshot + suara).'}
+   ]},
+  {n:'2Captcha',em:'⌨️',cat:'CAPTCHA — CADANGAN',rate:'$0,1–0,6 / 1.000 ⚠️ terendah',min:2,pay:'Payeer • BTC',
+   d:'😮‍💨 Jujur: ini kelas TERENDAH — 10.000 captcha cuma $1. Pakai ini CUMA pas semua platform lain sepi & lo butuh "sesuatu" yang jalan 24 jam. Bukan jalur utama.',
    signup:'https://2captcha.com/auth/register',
    login:'https://2captcha.com/auth/login',
    note:'Login terus tekan "Worker mode" (kanan atas). Di HP: app "2Captcha Bot" di Play Store.',
    app:'https://play.google.com/store/apps/details?id=com.rucaptcha.bot',
    setup:[
      {t:"Isi modal \"alternative communication channel\"",d:'Muncul pas pertama login. Select → Telegram/WhatsApp → isi kontak → Save. Tanpa ini nggak bisa Start work.'},
-     {t:'Install RuCaptcha Bot & login pake Client Key',d:'Play Store → cari "2Captcha Bot" (com.rucaptcha.bot) → login: paste Client Key (di 2captcha.com → Solve captchas → Copy) atau scan QR. Client Key = rahasia, jangan dishare.'},
-     {t:'Set metode pencairan: Payeer',d:'Finances → Edit payout method → Payeer (min $2). Belum punya Payeer? Daftar gratis di payeer.com dulu. Nanti saldo nyampe $2 → Request payout.'},
-     {t:'Klik START WORK',d:'Tombol hijau di bawah dashboard 2Captcha. Baru muncul setelah modal komunikasi diisi. Pas aktif → mulai ngetik!'}
+     {t:'Install RuCaptcha Bot & login pake Client Key',d:'Play Store → cari "2Captcha Bot" (com.rucaptcha.bot) → login: paste Client Key atau scan QR. Client Key = rahasia, jangan dishare.'},
+     {t:'Set metode pencairan: Payeer',d:'Finances → Edit payout method → Payeer (min $2). Belum punya? Daftar gratis di payeer.com dulu.'},
+     {t:'Klik START WORK',d:'Tombol hijau di bawah dashboard 2Captcha. Baru muncul setelah modal komunikasi diisi.'}
    ],
    tasks:[
      {t:'Captcha Standar (teks)',r:'$0,25–0,60 / 1.000',d:'Gambar teks terdistorsi, ketik apa yang lo lihat. Tugas paling banyak & paling sering muncul.',tip:'Ketik PERSIS apa yang terlihat (huruf besar/kecil ikut gambar). Akurasi > speed.'},
@@ -302,49 +366,21 @@ var WORK=[
      {t:'hCaptcha',r:'variatif',d:'Grid gambar ala reCAPTCHA. Volume lebih kecil, tapi bayaran per set lumayan.',tip:'Identifikasi objek yang jelas. Yang blur/gelap, skip aja daripada salah.'}
    ]},
   {n:'Kolotibablo',em:'🅱️',cat:'Captcha / Ketik',rate:'$0,5–1/jam',min:1,pay:'Payeer',
-   d:'Mesin captcha kedua — buka 2 tab, kalau 2Captcha sepi langsung pindah ke sini.',
+   d:'Mesin captcha cadangan kedua — buka kalau bener-bener sepi & butuh ngisi waktu.',
    signup:'https://kolotibablo.com/',
    login:'https://kolotibablo.com/',
-   note:'Sistemnya sama: ketik teks dari gambar. Akun terpisah = target tarik 2× lebih cepat.',
+   note:'Sistemnya sama: ketik teks dari gambar. Akun terpisah.',
    tasks:[
-     {t:'Captcha Standar',r:'$0,5–1 / 1.000',d:'Teks terdistorsi, ketik. Tugas tunggal — nggak ada grid.',tip:'Sama kaya 2Captcha: teliti, jangan buru-buru. Akurasi = tugas banyak.'},
+     {t:'Captcha Standar',r:'$0,5–1 / 1.000',d:'Teks terdistorsi, ketik. Tugas tunggal — nggak ada grid.',tip:'Sama kaya 2Captcha: teliti, jangan buru-buru.'},
      {t:'Captcha Gambar',r:'variatif',d:'Kadang muncul versi angka murni — lebih gampang & cepet.',tip:'Kalau muncul, gas kumpulin sebanyak mungkin.'}
    ]},
   {n:'MegaTypers',em:'Ⓜ️',cat:'Captcha / Ketik',rate:'$0,25–1/jam',min:3,pay:'PayPal • Payeer',
-   d:'Captcha ketiga. 3 akun captcha paralel = 3× kesempatan nyampe minimal tarik.',
+   d:'Captcha cadangan ketiga. Pakai cuma pas dua di atas juga lagi sepi.',
    signup:'https://megatypers.com/',
    login:'https://megatypers.com/',
    note:'Jalankan maksimal 2–3 platform captcha sekaligus. Lebih = fokus pecah, akurasi anjlok.',
    tasks:[
      {t:'Captcha Standar',r:'$0,25–1 / 1.000',d:'Ketik teks dari gambar. Ada versi "hard" yang bayarannya lebih tinggi.',tip:'Baca soal dulu — hard captcha sering nyamar sebagai yang gampang.'}
-   ]},
-  {n:'Toloka',em:'🤖',cat:'Mikrotugas AI',rate:'$3–12/jam',min:1,pay:'PayPal',
-   d:'Label gambar & data AI. Bayaran per tugas kebaca sebelum dikerjain. Nggak harus ngetik banyak.',
-   signup:'https://toloka.ai/',
-   login:'https://toloka.ai/',
-   note:'Setelah login, cek kategori "Image labeling / classification" — paling gampang buat pemula.',
-   tasks:[
-     {t:'Klasifikasi Gambar',r:'$0,01–0,05 / tugas',d:'Pilih kategori dari foto (yang ada / nggak ada / manifest). Jutaan tugas kayak gini tiap hari.',tip:'Kerjain per pagi & sore — stok tugas sering habis tengah hari.'},
-     {t:'Anotasi Objek',r:'variatif',d:'Gambar kotak di sekeliling objek tertentu (mobil, orang, pohon).',tip:'Pakai panduan di tiap tugas. Baca instruksi dulu, baru mulai.'},
-     {t:'Validasi Data',r:'variatif',d:'Cek kebenaran data: alamat, nomor, nama. Sesekali muncul, bayaran oke.',tip:'Kalau ragu jangan asal — ada review silang.'}
-   ]},
-  {n:'Freecash',em:'⚡',cat:'Survei & Offer',rate:'$1–20/hari',min:5,pay:'PayPal • kripto (INSTAN)',
-   d:'Tugas + offer + main game. Minimal tarik $5, cair menit–jam = platform paling cepet bayar.',
-   signup:'https://freecash.com/',
-   login:'https://freecash.com/',
-   note:'Waktu & bayaran kebaca sebelum lo mulai tiap offer. Pilih yang waktunya paling pendek.',
-   tasks:[
-     {t:'Offer Game',r:'$0,5–5 / offer',d:'Install & main game sampe level tertentu. Pas lagi ada promo, ini yang paling gede.',tip:'Baca syaratnya DULU (level berapa, berapa hari). Yang ribet, skip.'},
-     {t:'Survei Singkat',r:'$0,05–1 / survei',d:'Survei pendek 2–15 menit. Screening dulu — lolos baru dibayar.',tip:'Jawab jujur & konsisten. Yang nggak konsisten di-blacklist.'}
-   ]},
-  {n:'Remotasks',em:'🧠',cat:'Mikrotugas AI',rate:'$9–17/jam',min:0,pay:'PayPal • USDT (mingguan)',
-   d:'Anotasi gambar/video/teks buat AI. Lulus training gratis dulu — bayarannya kelas tertinggi mikrotugas.',
-   signup:'https://www.remotasks.com/',
-   login:'https://www.remotasks.com/',
-   note:'Training gratis & wajib. Habis lulus, tugas nongol tiap hari. Bayar mingguan.',
-   tasks:[
-     {t:'Anotasi Gambar (bounding box)',r:'$5–15/jam',d:'Gambar kotak di sekeliling objek di foto/video. Tugas paling umum.',tip:'Ikutin tutorial training-nya — kalau lolos kualitas, lo dapet proyek lebih mahal.'},
-     {t:'RLHF / Evaluasi Respons AI',r:'$15–40/jam',d:'Bandingin & nilai jawaban AI. Butuh paham konteks, tapi bayarannya gede.',tip:'Muncul buat yang udah terbukti akurat — jaga rating lo.'}
    ]}
 ];
 
